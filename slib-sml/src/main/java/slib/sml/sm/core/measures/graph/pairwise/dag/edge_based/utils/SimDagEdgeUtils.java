@@ -82,7 +82,7 @@ public class SimDagEdgeUtils {
 
         Map<URI, Double> msaSet = new HashMap<URI, Double>(); // eligible MSA + dist to root
 
-        if (interSecAncestors.isEmpty()) {
+        if (!interSecAncestors.isEmpty()) {
 
             // Search MSA considering PK function 
 
@@ -90,7 +90,7 @@ public class SimDagEdgeUtils {
 
             for (URI r : interSecAncestors) {
 
-                double sp_root = dijkstra.shortestPath(root, r);
+                double sp_root = dijkstra.shortestPath(r, root);
 
                 double score = allSpA.get(r) + allSpB.get(r) + sp_root;
 
@@ -110,7 +110,7 @@ public class SimDagEdgeUtils {
             }
         }
 
-        URI msa = null;
+        URI msa = root;
         double msalpr = 0;
         // we select the eligible msa with the longest shortest path to the root (lpr)
         // i.e. Optimistic implementation as more lpr is high, more the final score will be high
